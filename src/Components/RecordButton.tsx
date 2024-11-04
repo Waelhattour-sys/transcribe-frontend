@@ -1,4 +1,3 @@
-// src/RecordButton.tsx
 
 import React, { useState } from 'react';
 import { Box, Button } from '@mui/material';
@@ -16,24 +15,29 @@ const RecordButton: React.FC = () => {
       console.log("Requesting microphone access...");
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream);
-
+      let data: Blob | MediaSource | null=null;
+      let data2: BlobPart[] =[]
       recorder.ondataavailable = (event) => {
         setAudioBlob(event.data);
+        data=event.data;
+        data2.push(event.data);
       };
-
       recorder.onstop = () => {
-        if (audioBlob) {
-          const url = URL.createObjectURL(audioBlob);
+        if (data) {
+          const url = URL.createObjectURL(data);
+          const blob = new Blob(data2, {
+            'type': 'audio/mp3'
+          });
           setAudioUrl(url);
-          alert("Recording stopped!"); // Alert for stopping the recording
         }
       };
-
+      recorder.onstart=()=>{
+        data2.length = 0
+      }
       recorder.start();
       setMediaRecorder(recorder);
       setIsRecording(true);
       console.log("Recording started...");
-      alert("Recording started!"); // Alert for starting the recording
     } catch (error) {
       console.error("Error accessing the microphone:", error);
       alert("Could not access the microphone. Please check permissions.");
@@ -79,6 +83,7 @@ const RecordButton: React.FC = () => {
           <GenerateTranscribeButton 
             audioBlob={audioBlob} 
             audioUrl={audioUrl} 
+
           />
         </Box>
       )}

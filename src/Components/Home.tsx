@@ -1,8 +1,7 @@
-// src/Home.tsx
 
 import React from 'react';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
-import CenteredContent from './CenteredContent';
+import CenteredContentHome from './CenteredContent';
 
 const Home: React.FC = () => {
   return (
@@ -12,10 +11,9 @@ const Home: React.FC = () => {
         background: 'linear-gradient(to bottom, blue, white)',
       }}
     >
-      {/* Top Navigation Bar without border/shadow */}
       <AppBar
         position="static"
-        elevation={0} // Removes border/shadow
+        elevation={0} 
         sx={{ background: 'linear-gradient(to right, blue, #1976d2)' }}
       >
         <Toolbar>
@@ -25,7 +23,7 @@ const Home: React.FC = () => {
               fontWeight: 'bold',
               color: '#fff',
               '& span': {
-                color: '#ffeb3b', // Specific color for 'scribe'
+                color: '#ffeb3b', 
               },
             }}
           >
@@ -36,13 +34,13 @@ const Home: React.FC = () => {
 
       <Box
         sx={{
-          height: 'calc(100vh - 64px)', // Adjusting height for AppBar
+          height: 'calc(100vh - 64px)', 
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <CenteredContent />
+        <CenteredContentHome />
       </Box>
     </Box>
   );

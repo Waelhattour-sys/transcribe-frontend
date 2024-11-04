@@ -1,4 +1,3 @@
-// src/GenerateTranscribeButton.tsx
 
 import React from 'react';
 import { Button } from '@mui/material';
@@ -9,20 +8,19 @@ interface GenerateTranscribeButtonProps {
 }
 
 const GenerateTranscribeButton: React.FC<GenerateTranscribeButtonProps> = ({ audioBlob, audioUrl }) => {
-  
   const handleGenerateTranscribe = async () => {
     if (!audioBlob) {
       alert("No audio recorded!");
       return;
     }
 
-    // Create a FormData object to send the audio blob
+    const arrayBuffer = await audioBlob.arrayBuffer();
+    
     const formData = new FormData();
-    formData.append('audio', audioBlob, 'recording.webm');
+    formData.append('audio', audioBlob, 'recording.mp3');
 
     try {
-      // Send the audio blob to a transcription service (replace with your API URL)
-      const response = await fetch('YOUR_TRANSCRIPTION_API_URL', {
+      const response = await fetch('http://localhost:5001/transcribe', { // Update to your backend URL
         method: 'POST',
         body: formData,
       });
@@ -33,10 +31,10 @@ const GenerateTranscribeButton: React.FC<GenerateTranscribeButtonProps> = ({ aud
 
       const data = await response.json();
       console.log('Transcription result:', data);
-      alert(`Transcription result: ${data.transcription}`); // Assuming the API returns a 'transcription' field
+      alert(`Transcription result: ${data.transcript}`); 
     } catch (error) {
       console.error('Error during transcription:', error);
-      alert('Transcription failed. Please try again.');
+      alert(`Transcription failed. Please try again.${error}`);
     }
   };
 
@@ -44,16 +42,16 @@ const GenerateTranscribeButton: React.FC<GenerateTranscribeButtonProps> = ({ aud
     <Button
       variant="contained"
       sx={{
-        backgroundColor: '#64b5f6', // Darker blue background color
-        color: '#fff', // White text
+        backgroundColor: '#64b5f6', 
+        color: '#fff', 
         fontWeight: 'bold',
         textTransform: 'none',
         borderRadius: '20px',
         padding: '12px',
-        width: '100%', // Make the button take full width
-        mt: 2, // Margin top for spacing
+        width: '100%', 
+        mt: 2, 
         '&:hover': {
-          backgroundColor: '#42a5f5', // Darker shade on hover
+          backgroundColor: '#42a5f5', 
         },
       }}
       onClick={handleGenerateTranscribe}
@@ -62,5 +60,5 @@ const GenerateTranscribeButton: React.FC<GenerateTranscribeButtonProps> = ({ aud
     </Button>
   );
 };
-
 export default GenerateTranscribeButton;
+

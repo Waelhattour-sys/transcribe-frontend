@@ -1,10 +1,9 @@
-// src/CenteredContent.tsx
 
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import RecordButton from './RecordButton';
 
-const CenteredContent: React.FC = () => {
+const CenteredContentHome: React.FC = () => {
   return (
     <Box
       sx={{
@@ -14,14 +13,13 @@ const CenteredContent: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      {/* Main Title with Span for Styled Part */}
       <Typography
         variant="h2"
         sx={{
           fontWeight: 'bold',
-          color: '#1976d2', // Main color for "Tran"
+          color: 'white', 
           '& span': {
-            color: '#ffeb3b', // Specific color for 'scribe'
+            color: '#ffeb3b', 
           },
         }}
       >
@@ -32,17 +30,17 @@ const CenteredContent: React.FC = () => {
       <Typography
         variant="subtitle1"
         sx={{
-          color: '#555', // Subtitle color
-          mt: 2, // Margin top for spacing
+          color: '#555', 
+          mt: 2, 
         }}
       >
         Record → Transcribe → Translate
       </Typography>
-      <Box sx={{ mt: 3 }}> {/* Margin top for spacing */}
+      <Box sx={{ mt: 3 }}> 
         <RecordButton />
       </Box>
     </Box>
   );
 };
 
-export default CenteredContent;
+export default CenteredContentHome;
